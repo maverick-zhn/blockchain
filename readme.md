@@ -1,3 +1,6 @@
+# Blockchain installation and playground
+
+```
 maverickzhn@maverickzhn-mbp ~/b/f/scripts> ./bootstrap.sh
 
 Installing Hyperledger Fabric binaries
@@ -191,3 +194,4 @@ hyperledger/fabric-orderer                      x86_64-1.1.0        ce0c810df36a
 hyperledger/fabric-peer                         x86_64-1.1.0        b023f9be0771        5 months ago        187MB
 hyperledger/fabric-ccenv                        x86_64-1.1.0        c8b4909d8d46        5 months ago        1.39GB
 hyperledger/fabric-couchdb                      x86_64-0.4.6        7e73c828fc5b        5 months ago        1.56GB
+```
