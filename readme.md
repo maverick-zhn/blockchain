@@ -197,6 +197,7 @@ hyperledger/fabric-couchdb                      x86_64-0.4.6        7e73c828fc5b
 ```
 
 # Install Samples, Binaries and Docker Images
+* https://hyperledger-fabric.readthedocs.io/en/release-1.2/install.html
 
 
 ```
@@ -303,3 +304,367 @@ hyperledger/fabric-peer                         x86_64-1.1.0        b023f9be0771
 hyperledger/fabric-ccenv                        x86_64-1.1.0        c8b4909d8d46        5 months ago        1.39GB
 hyperledger/fabric-couchdb                      x86_64-0.4.6        7e73c828fc5b        5 months ago        1.56GB
 ```
+
+# Exporting path
+
+```
+maverickzhn@maverickzhn-mbp ~/b/fabric-samples> export PATH=path_/bin:$PATH
+maverickzhn@maverickzhn-mbp ~/b/fabric-samples> echo $PATH
+maverickzhn@maverickzhn-mbp ~/b/fabric-samples>
+```
+
+## Building your first netwrok:
+* https://hyperledger-fabric.readthedocs.io/en/release-1.2/build_network.html
+
+
+### Generating Certificates and channels:
+
+```
+maverickzhn@maverickzhn-mbp ~/b/f/first-network> ./byfn.sh
+Usage:
+  byfn.sh <mode> [-c <channel name>] [-t <timeout>] [-d <delay>] [-f <docker-compose-file>] [-s <dbtype>] [-l <language>] [-i <imagetag>] [-v]
+    <mode> - one of 'up', 'down', 'restart', 'generate' or 'upgrade'
+      - 'up' - bring up the network with docker-compose up
+      - 'down' - clear the network with docker-compose down
+      - 'restart' - restart the network
+      - 'generate' - generate required certificates and genesis block
+      - 'upgrade'  - upgrade the network from version 1.1.x to 1.2.x
+    -c <channel name> - channel name to use (defaults to "mychannel")
+    -t <timeout> - CLI timeout duration in seconds (defaults to 10)
+    -d <delay> - delay duration in seconds (defaults to 3)
+    -f <docker-compose-file> - specify which docker-compose file use (defaults to docker-compose-cli.yaml)
+    -s <dbtype> - the database backend to use: goleveldb (default) or couchdb
+    -l <language> - the chaincode language: golang (default) or node
+    -i <imagetag> - the tag to be used to launch the network (defaults to "latest")
+    -v - verbose mode
+  byfn.sh -h (print this message)
+
+Typically, one would first generate the required certificates and
+genesis block, then bring up the network. e.g.:
+
+	byfn.sh generate -c mychannel
+	byfn.sh up -c mychannel -s couchdb
+        byfn.sh up -c mychannel -s couchdb -i 1.2.x
+	byfn.sh up -l node
+	byfn.sh down -c mychannel
+        byfn.sh upgrade -c mychannel
+
+Taking all defaults:
+	byfn.sh generate
+	byfn.sh up
+	byfn.sh down
+maverickzhn@maverickzhn-mbp ~/b/f/first-network> ./byfn.sh generate -c mychannel
+Generating certs and genesis block for channel 'mychannel' with CLI timeout of '10' seconds and CLI delay of '3' seconds
+Continue? [Y/n] y
+proceeding ...
+/Users/maverickzhn/blockchain/fabric-samples/first-network/../bin/cryptogen
+
+##########################################################
+##### Generate certificates using cryptogen tool #########
+##########################################################
++ cryptogen generate --config=./crypto-config.yaml
+org1.example.com
+org2.example.com
++ res=0
++ set +x
+
+/Users/maverickzhn/blockchain/fabric-samples/first-network/../bin/configtxgen
+##########################################################
+#########  Generating Orderer Genesis block ##############
+##########################################################
++ configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+2018-08-12 18:34:25.502 EDT [common/tools/configtxgen] main -> WARN 001 Omitting the channel ID for configtxgen is deprecated.  Explicitly passing the channel ID will be required in the future, defaulting to 'testchainid'.
+2018-08-12 18:34:25.502 EDT [common/tools/configtxgen] main -> INFO 002 Loading configuration
+2018-08-12 18:34:25.512 EDT [common/tools/configtxgen/encoder] NewChannelGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the channel group in configtx.yaml
+2018-08-12 18:34:25.512 EDT [common/tools/configtxgen/encoder] NewOrdererGroup -> WARN 004 Default policy emission is deprecated, please include policy specificiations for the orderer group in configtx.yaml
+2018-08-12 18:34:25.513 EDT [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the orderer org group OrdererOrg in configtx.yaml
+2018-08-12 18:34:25.513 EDT [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-08-12 18:34:25.513 EDT [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org1MSP in configtx.yaml
+2018-08-12 18:34:25.514 EDT [msp] getMspConfig -> INFO 008 Loading NodeOUs
+2018-08-12 18:34:25.514 EDT [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 009 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org2MSP in configtx.yaml
+2018-08-12 18:34:25.514 EDT [common/tools/configtxgen] doOutputBlock -> INFO 00a Generating genesis block
+2018-08-12 18:34:25.515 EDT [common/tools/configtxgen] doOutputBlock -> INFO 00b Writing genesis block
++ res=0
++ set +x
+
+#################################################################
+### Generating channel configuration transaction 'channel.tx' ###
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel
+2018-08-12 18:34:25.546 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-08-12 18:34:25.552 EDT [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 002 Generating new channel configtx
+2018-08-12 18:34:25.552 EDT [common/tools/configtxgen/encoder] NewApplicationGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the application group in configtx.yaml
+2018-08-12 18:34:25.552 EDT [msp] getMspConfig -> INFO 004 Loading NodeOUs
+2018-08-12 18:34:25.552 EDT [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the application org group Org1MSP in configtx.yaml
+2018-08-12 18:34:25.553 EDT [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-08-12 18:34:25.553 EDT [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the application org group Org2MSP in configtx.yaml
+2018-08-12 18:34:25.554 EDT [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 008 Writing new channel tx
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org1MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP
+2018-08-12 18:34:25.584 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-08-12 18:34:25.590 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-08-12 18:34:25.590 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org2MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID mychannel -asOrg Org2MSP
+2018-08-12 18:34:25.622 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-08-12 18:34:25.627 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-08-12 18:34:25.627 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
+```
+
+### CounchDB
+```
+maverickzhn@maverickzhn-mbp ~/b/f/first-network> ./byfn.sh up -c mychannel -s couchdb
+
+Starting for channel 'mychannel' with CLI timeout of '10' seconds and CLI delay of '3' seconds and using database 'couchdb'
+Continue? [Y/n] y
+proceeding ...
+LOCAL_VERSION=1.2.0
+DOCKER_IMAGE_VERSION=1.2.0
+Creating network "net_byfn" with the default driver
+Creating volume "net_orderer.example.com" with default driver
+Creating volume "net_peer0.org1.example.com" with default driver
+Creating volume "net_peer1.org1.example.com" with default driver
+Creating volume "net_peer0.org2.example.com" with default driver
+Creating volume "net_peer1.org2.example.com" with default driver
+Creating couchdb1            ... done
+Creating orderer.example.com    ... done
+Creating couchdb0               ... done
+Creating couchdb2               ... done
+Creating couchdb3               ... done
+Creating peer1.org1.example.com ... done
+Creating peer0.org1.example.com ... done
+Creating peer0.org2.example.com ... done
+Creating peer1.org2.example.com ... done
+Creating cli                    ... done
+
+ ____    _____      _      ____    _____
+/ ___|  |_   _|    / \    |  _ \  |_   _|
+\___ \    | |     / _ \   | |_) |   | |
+ ___) |   | |    / ___ \  |  _ <    | |
+|____/    |_|   /_/   \_\ |_| \_\   |_|
+
+Build your first network (BYFN) end-to-end test
+
+Channel name : mychannel
+Creating channel...
++ peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/channel.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2018-08-12 22:36:04.120 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-08-12 22:36:04.176 UTC [cli/common] readBlock -> INFO 002 Got status: &{NOT_FOUND}
+2018-08-12 22:36:04.193 UTC [channelCmd] InitCmdFactory -> INFO 003 Endorser and orderer connections initialized
+2018-08-12 22:36:04.398 UTC [cli/common] readBlock -> INFO 004 Received block: 0
+===================== Channel 'mychannel' created =====================
+
+Having all peers join the channel...
++ peer channel join -b mychannel.block
++ res=1
++ set +x
+Error: error getting endorser client for channel: endorser client failed to connect to peer0.org1.example.com:7051: failed to create new connection: context deadline exceeded
+peer0.org1 failed to join the channel, Retry after 3 seconds
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-08-12 22:36:10.745 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-08-12 22:36:10.886 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer0.org1 joined channel 'mychannel' =====================
+
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-08-12 22:36:14.003 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-08-12 22:36:14.137 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer1.org1 joined channel 'mychannel' =====================
+
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-08-12 22:36:17.240 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-08-12 22:36:17.361 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer0.org2 joined channel 'mychannel' =====================
+
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2018-08-12 22:36:20.440 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-08-12 22:36:20.587 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer1.org2 joined channel 'mychannel' =====================
+
+Updating anchor peers for org1...
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org1MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2018-08-12 22:36:23.719 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-08-12 22:36:23.740 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
+===================== Anchor peers updated for org 'Org1MSP' on channel 'mychannel' =====================
+
+Updating anchor peers for org2...
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org2MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2018-08-12 22:36:26.858 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2018-08-12 22:36:26.883 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
+===================== Anchor peers updated for org 'Org2MSP' on channel 'mychannel' =====================
+
+Installing chaincode on peer0.org1...
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ set +x
+2018-08-12 22:36:30.002 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-08-12 22:36:30.002 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-08-12 22:36:30.605 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
+===================== Chaincode is installed on peer0.org1 =====================
+
+Install chaincode on peer0.org2...
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ set +x
+2018-08-12 22:36:30.727 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-08-12 22:36:30.727 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-08-12 22:36:31.027 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
+===================== Chaincode is installed on peer0.org2 =====================
+
+Instantiating chaincode on peer0.org2...
++ peer chaincode instantiate -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc -l golang -v 1.0 -c '{"Args":["init","a","100","b","200"]}' -P 'AND ('\''Org1MSP.peer'\'','\''Org2MSP.peer'\'')'
++ res=0
++ set +x
+2018-08-12 22:36:31.158 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-08-12 22:36:31.158 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+===================== Chaincode is instantiated on peer0.org2 on channel 'mychannel' =====================
+
+Querying chaincode on peer0.org1...
+===================== Querying on peer0.org1 on channel 'mychannel'... =====================
++ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
+Attempting to Query peer0.org1 ...3 secs
+
+100
+===================== Query successful on peer0.org1 on channel 'mychannel' =====================
+Sending invoke transaction on peer0.org1 peer0.org2...
++ peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
++ res=0
++ set +x
+2018-08-12 22:37:16.608 UTC [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 001 Chaincode invoke successful. result: status:200
+===================== Invoke transaction successful on peer0.org1 peer0.org2 on channel 'mychannel' =====================
+
+Installing chaincode on peer1.org2...
++ peer chaincode install -n mycc -v 1.0 -l golang -p github.com/chaincode/chaincode_example02/go/
++ res=0
++ set +x
+2018-08-12 22:37:16.728 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2018-08-12 22:37:16.728 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2018-08-12 22:37:17.236 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
+===================== Chaincode is installed on peer1.org2 =====================
+
+Querying chaincode on peer1.org2...
+===================== Querying on peer1.org2 on channel 'mychannel'... =====================
++ peer chaincode query -C mychannel -n mycc -c '{"Args":["query","a"]}'
+Attempting to Query peer1.org2 ...3 secs
+
+90
+===================== Query successful on peer1.org2 on channel 'mychannel' =====================
+
+========= All GOOD, BYFN execution completed ===========
+
+
+ _____   _   _   ____
+| ____| | \ | | |  _ \
+|  _|   |  \| | | | | |
+| |___  | |\  | | |_| |
+|_____| |_| \_| |____/
+```
+
+### Generate Network Artifacts
+
+```
+maverickzhn@maverickzhn-mbp ~/b/fabric-samples> cd first-network/
+maverickzhn@maverickzhn-mbp ~/b/f/first-network> ./byfn.sh generate
+Generating certs and genesis block for channel 'mychannel' with CLI timeout of '10' seconds and CLI delay of '3' seconds
+Continue? [Y/n] y
+proceeding ...
+/Users/maverickzhn/blockchain/fabric-samples/first-network/../bin/cryptogen
+
+##########################################################
+##### Generate certificates using cryptogen tool #########
+##########################################################
++ cryptogen generate --config=./crypto-config.yaml
+org1.example.com
+org2.example.com
++ res=0
++ set +x
+
+/Users/maverickzhn/blockchain/fabric-samples/first-network/../bin/configtxgen
+##########################################################
+#########  Generating Orderer Genesis block ##############
+##########################################################
++ configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block
+2018-08-12 20:00:34.397 EDT [common/tools/configtxgen] main -> WARN 001 Omitting the channel ID for configtxgen is deprecated.  Explicitly passing the channel ID will be required in the future, defaulting to 'testchainid'.
+2018-08-12 20:00:34.397 EDT [common/tools/configtxgen] main -> INFO 002 Loading configuration
+2018-08-12 20:00:34.406 EDT [common/tools/configtxgen/encoder] NewChannelGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the channel group in configtx.yaml
+2018-08-12 20:00:34.406 EDT [common/tools/configtxgen/encoder] NewOrdererGroup -> WARN 004 Default policy emission is deprecated, please include policy specificiations for the orderer group in configtx.yaml
+2018-08-12 20:00:34.406 EDT [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the orderer org group OrdererOrg in configtx.yaml
+2018-08-12 20:00:34.406 EDT [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-08-12 20:00:34.408 EDT [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org1MSP in configtx.yaml
+2018-08-12 20:00:34.408 EDT [msp] getMspConfig -> INFO 008 Loading NodeOUs
+2018-08-12 20:00:34.408 EDT [common/tools/configtxgen/encoder] NewOrdererOrgGroup -> WARN 009 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org2MSP in configtx.yaml
+2018-08-12 20:00:34.408 EDT [common/tools/configtxgen] doOutputBlock -> INFO 00a Generating genesis block
+2018-08-12 20:00:34.409 EDT [common/tools/configtxgen] doOutputBlock -> INFO 00b Writing genesis block
++ res=0
++ set +x
+
+#################################################################
+### Generating channel configuration transaction 'channel.tx' ###
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel
+2018-08-12 20:00:34.441 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-08-12 20:00:34.448 EDT [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 002 Generating new channel configtx
+2018-08-12 20:00:34.448 EDT [common/tools/configtxgen/encoder] NewApplicationGroup -> WARN 003 Default policy emission is deprecated, please include policy specificiations for the application group in configtx.yaml
+2018-08-12 20:00:34.448 EDT [msp] getMspConfig -> INFO 004 Loading NodeOUs
+2018-08-12 20:00:34.448 EDT [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 005 Default policy emission is deprecated, please include policy specificiations for the application org group Org1MSP in configtx.yaml
+2018-08-12 20:00:34.448 EDT [msp] getMspConfig -> INFO 006 Loading NodeOUs
+2018-08-12 20:00:34.449 EDT [common/tools/configtxgen/encoder] NewApplicationOrgGroup -> WARN 007 Default policy emission is deprecated, please include policy specificiations for the application org group Org2MSP in configtx.yaml
+2018-08-12 20:00:34.449 EDT [common/tools/configtxgen] doOutputChannelCreateTx -> INFO 008 Writing new channel tx
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org1MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP
+2018-08-12 20:00:34.479 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-08-12 20:00:34.484 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-08-12 20:00:34.484 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org2MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID mychannel -asOrg Org2MSP
+2018-08-12 20:00:34.514 EDT [common/tools/configtxgen] main -> INFO 001 Loading configuration
+2018-08-12 20:00:34.519 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 002 Generating anchor peer update
+2018-08-12 20:00:34.520 EDT [common/tools/configtxgen] doOutputAnchorPeersUpdate -> INFO 003 Writing anchor peer update
++ res=0
++ set +x
+
+```
+
+### Bring up the network
+
+```
+./byfn.sh up
+```
+
+
+
