@@ -1,5 +1,15 @@
 # Blockchain installation and playground
 
+## References
+* https://github.com/IBM/todo-list-fabricV1
+* https://hyperledger-fabric.readthedocs.io/en/release-1.2/write_first_app.html
+* https://github.com/hyperledger/fabric-sdk-node
+* https://chat.hyperledger.org/channel/general
+* https://fabric-shim.github.io/ChaincodeStub.html
+* https://www.crn.com/news/components-peripherals/300105511/intel-promotes-hardware-based-security-for-blockchain-and-ai.htm?itc=refresh
+* https://medium.com/@kpbird/how-to-setup-hyperledger-fabric-and-composer-in-mac-osx-fb7611b55ba8
+
+
 ```
 maverickzhn@maverickzhn-mbp ~/b/f/scripts> ./bootstrap.sh
 
