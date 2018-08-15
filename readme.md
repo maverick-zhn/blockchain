@@ -1242,3 +1242,5 @@ Creating cli ... done
 2018-08-13 21:52:12.332 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
 Error: could not assemble transaction, err Proposal response was not successful, error code 500, msg failed to execute transaction d6a30c22bf7888082c081e52e2f37d1d80cd8e5e96d0fdb5d3d00e22003cda4e: timeout expired while starting chaincode fabcar:1.0 for transaction d6a30c22bf7888082c081e52e2f37d1d80cd8e5e96d0fdb5d3d00e22003cda4e
 ```
+
+./startFabric.sh
