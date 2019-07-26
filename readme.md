@@ -12,6 +12,324 @@ Updating to the new version
 * https://www.crn.com/news/components-peripherals/300105511/intel-promotes-hardware-based-security-for-blockchain-and-ai.htm?itc=refresh
 * https://medium.com/@kpbird/how-to-setup-hyperledger-fabric-and-composer-in-mac-osx-fb7611b55ba8
 
+```
+  curl -sSL http://bit.ly/2ysbOFE | bash -s                                       25.07.19    23:10:28 
+
+Installing hyperledger/fabric-samples repo
+
+===> Cloning hyperledger/fabric-samples repo and checkout v1.4.2
+Cloning into 'fabric-samples'...
+remote: Enumerating objects: 134, done.
+remote: Counting objects: 100% (134/134), done.
+remote: Compressing objects: 100% (82/82), done.
+remote: Total 3546 (delta 28), reused 117 (delta 11), pack-reused 3412
+Receiving objects: 100% (3546/3546), 1.20 MiB | 1.19 MiB/s, done.
+Resolving deltas: 100% (1697/1697), done.
+Note: checking out 'v1.4.2'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 9e0eed1 [FAB-15104] Remove scripts/bootstrap.sh
+
+Installing Hyperledger Fabric binaries
+
+===> Downloading version 1.4.2 platform specific fabric binaries
+===> Downloading:  https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/darwin-amd64-1.4.2/hyperledger-fabric-darwin-amd64-1.4.2.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 40.7M  100 40.7M    0     0   544k      0  0:01:16  0:01:16 --:--:--  740k
+==> Done.
+===> Downloading version 1.4.2 platform specific fabric-ca-client binary
+===> Downloading:  https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric-ca/hyperledger-fabric-ca/darwin-amd64-1.4.2/hyperledger-fabric-ca-darwin-amd64-1.4.2.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 5075k  100 5075k    0     0   838k      0  0:00:06  0:00:06 --:--:--  988k
+==> Done.
+
+Installing Hyperledger Fabric docker images
+
+===> Pulling fabric Images
+==> FABRIC IMAGE: peer
+
+1.4.2: Pulling from hyperledger/fabric-peer
+34667c7e4631: Pull complete
+d18d76a881a4: Pull complete
+119c7358fbfc: Pull complete
+2aaf13f3eff0: Pull complete
+3f89de4cf84b: Pull complete
+24194f819972: Pull complete
+8fa40bdcd32a: Pull complete
+d596d7bfcec3: Pull complete
+1aa4871489bb: Pull complete
+Digest: sha256:b0f529295f9e970b18263671f2188f62f3bac9026747bfc8d0e9a605e91ff001
+Status: Downloaded newer image for hyperledger/fabric-peer:1.4.2
+==> FABRIC IMAGE: orderer
+
+1.4.2: Pulling from hyperledger/fabric-orderer
+34667c7e4631: Already exists
+d18d76a881a4: Already exists
+119c7358fbfc: Already exists
+2aaf13f3eff0: Already exists
+3f89de4cf84b: Already exists
+24194f819972: Already exists
+8fa40bdcd32a: Already exists
+726ca15d3cc3: Pull complete
+f943f13f36af: Pull complete
+Digest: sha256:b07975809591de3c93d37f3d7a06406c1ce4cb775c322c2352513a253830bc36
+Status: Downloaded newer image for hyperledger/fabric-orderer:1.4.2
+==> FABRIC IMAGE: ccenv
+
+1.4.2: Pulling from hyperledger/fabric-ccenv
+34667c7e4631: Already exists
+d18d76a881a4: Already exists
+119c7358fbfc: Already exists
+2aaf13f3eff0: Already exists
+3f89de4cf84b: Already exists
+24194f819972: Already exists
+78e4eabd31a5: Pull complete
+c7652b6bde40: Pull complete
+b4646dd65c45: Pull complete
+5e6defad8a30: Pull complete
+7701c1a655e4: Pull complete
+484dee9a082b: Pull complete
+562474a67e8b: Pull complete
+Digest: sha256:9f047d427357350885f5dbc7f042c5fd52694ca74e6cf028faeae923ae7c9190
+Status: Downloaded newer image for hyperledger/fabric-ccenv:1.4.2
+==> FABRIC IMAGE: tools
+
+1.4.2: Pulling from hyperledger/fabric-tools
+34667c7e4631: Already exists
+d18d76a881a4: Already exists
+119c7358fbfc: Already exists
+2aaf13f3eff0: Already exists
+3f89de4cf84b: Already exists
+24194f819972: Already exists
+78e4eabd31a5: Already exists
+c7652b6bde40: Already exists
+b4646dd65c45: Already exists
+5e6defad8a30: Already exists
+18a94754e9cd: Pull complete
+86cd1909ed63: Pull complete
+3a85e2f8d254: Pull complete
+Digest: sha256:a5c377e8587d4543685b474637ab1d4aed86988b893e5f176032129b620b6bf2
+Status: Downloaded newer image for hyperledger/fabric-tools:1.4.2
+==> FABRIC IMAGE: baseos
+
+Error response from daemon: manifest for hyperledger/fabric-baseos:1.4.2 not found
+Error response from daemon: No such image: hyperledger/fabric-baseos:1.4.2
+==> FABRIC IMAGE: nodeenv
+
+Error response from daemon: manifest for hyperledger/fabric-nodeenv:1.4.2 not found
+Error response from daemon: No such image: hyperledger/fabric-nodeenv:1.4.2
+==> FABRIC IMAGE: javaenv
+
+1.4.2: Pulling from hyperledger/fabric-javaenv
+34667c7e4631: Already exists
+d18d76a881a4: Already exists
+119c7358fbfc: Already exists
+2aaf13f3eff0: Already exists
+3f89de4cf84b: Already exists
+24194f819972: Already exists
+78e4eabd31a5: Already exists
+c7652b6bde40: Already exists
+b4646dd65c45: Already exists
+5e6defad8a30: Already exists
+83d0aef4e2d6: Pull complete
+47d779d89b87: Pull complete
+5fd4cb5c0ca6: Pull complete
+a3e23bf3020b: Pull complete
+84e61243b112: Pull complete
+bcd6f842c692: Pull complete
+e99be2ec1d91: Pull complete
+16ae2145c0fc: Pull complete
+d2c7009b0e47: Pull complete
+4f147c1ec297: Pull complete
+e70fff4a95f5: Pull complete
+0de639cbcfde: Pull complete
+c22321aea439: Pull complete
+168fc212b8f0: Pull complete
+3af19ecca03e: Pull complete
+1aeff3f7337f: Pull complete
+b2a4fe7b5373: Pull complete
+c49d13d6bc4c: Pull complete
+d5e218561328: Pull complete
+0be2598fbe18: Pull complete
+e7356872651d: Pull complete
+50d0b732cd8e: Pull complete
+fd13dadb0403: Pull complete
+ea72d89dfb8e: Pull complete
+adb108d15b38: Pull complete
+60236d4a5feb: Pull complete
+2eb6de5e9d19: Pull complete
+Digest: sha256:b3cc1042b7b08607f2d781e036251cf3a5151b99e3d7aba8bf404ff94b2ec68e
+Status: Downloaded newer image for hyperledger/fabric-javaenv:1.4.2
+===> Pulling fabric ca Image
+==> FABRIC CA IMAGE
+
+1.4.2: Pulling from hyperledger/fabric-ca
+34667c7e4631: Already exists
+d18d76a881a4: Already exists
+119c7358fbfc: Already exists
+2aaf13f3eff0: Already exists
+3f89de4cf84b: Already exists
+24194f819972: Already exists
+6c9a20bc8c40: Pull complete
+44c769eed4fe: Pull complete
+66b165378ca1: Pull complete
+9db610c0a40c: Pull complete
+5022d54a10f0: Pull complete
+Digest: sha256:6c89ec2b27849c02f71479742c79bf33260984ad391f39dd3fe25fc7adb535d0
+Status: Downloaded newer image for hyperledger/fabric-ca:1.4.2
+===> Pulling thirdparty docker images
+==> THIRDPARTY DOCKER IMAGE: couchdb
+
+Error response from daemon: Get https://registry-1.docker.io/v2/: Service Unavailable
+Error response from daemon: No such image: hyperledger/fabric-couchdb:0.4.15
+==> THIRDPARTY DOCKER IMAGE: kafka
+
+0.4.15: Pulling from hyperledger/fabric-kafka
+34667c7e4631: Already exists
+d18d76a881a4: Already exists
+119c7358fbfc: Already exists
+2aaf13f3eff0: Already exists
+3f89de4cf84b: Already exists
+24194f819972: Already exists
+78e4eabd31a5: Already exists
+c7652b6bde40: Already exists
+b4646dd65c45: Already exists
+5e6defad8a30: Already exists
+d0459116a54a: Pull complete
+1bbcec7bfdef: Pull complete
+5911218c5933: Pull complete
+Digest: sha256:62418a885c291830510379d9eb09fbdd3d397052d916ed877a468b0e2026b9e3
+Status: Downloaded newer image for hyperledger/fabric-kafka:0.4.15
+==> THIRDPARTY DOCKER IMAGE: zookeeper
+
+0.4.15: Pulling from hyperledger/fabric-zookeeper
+34667c7e4631: Already exists
+d18d76a881a4: Already exists
+119c7358fbfc: Already exists
+2aaf13f3eff0: Already exists
+3f89de4cf84b: Already exists
+24194f819972: Already exists
+78e4eabd31a5: Already exists
+c7652b6bde40: Already exists
+b4646dd65c45: Already exists
+5e6defad8a30: Already exists
+0e045d9c2cdc: Pull complete
+7ef4d8920518: Pull complete
+dbeed81d9a45: Pull complete
+aeea025ecc4e: Pull complete
+Digest: sha256:180553e88d09167370aa62a41587a9a95b819b981ad74cad218689412b85f130
+Status: Downloaded newer image for hyperledger/fabric-zookeeper:0.4.15
+
+===> List out hyperledger docker images
+hyperledger/fabric-javaenv              1.4.2               1cd707531ce7        7 days ago          1.76GB
+hyperledger/fabric-javaenv              latest              1cd707531ce7        7 days ago          1.76GB
+hyperledger/fabric-ca                   1.4.2               f289675c9874        8 days ago          253MB
+hyperledger/fabric-ca                   latest              f289675c9874        8 days ago          253MB
+hyperledger/fabric-tools                1.4.2               0abc124a9400        8 days ago          1.55GB
+hyperledger/fabric-tools                latest              0abc124a9400        8 days ago          1.55GB
+hyperledger/fabric-ccenv                1.4.2               fc0f502399a6        8 days ago          1.43GB
+hyperledger/fabric-ccenv                latest              fc0f502399a6        8 days ago          1.43GB
+hyperledger/fabric-orderer              1.4.2               362021998003        8 days ago          173MB
+hyperledger/fabric-orderer              latest              362021998003        8 days ago          173MB
+hyperledger/fabric-peer                 1.4.2               d79f2f4f3257        8 days ago          178MB
+hyperledger/fabric-peer                 latest              d79f2f4f3257        8 days ago          178MB
+hyperledger/fabric-zookeeper            0.4.15              20c6045930c8        4 months ago        1.43GB
+hyperledger/fabric-zookeeper            latest              20c6045930c8        4 months ago        1.43GB
+hyperledger/fabric-kafka                0.4.15              b4ab82bbaf2f        4 months ago        1.44GB
+hyperledger/fabric-kafka                latest              b4ab82bbaf2f        4 months ago        1.44GB
+hyperledger/fabric-ca                   1.2.0               66cc132bd09c        12 months ago       252MB
+hyperledger/fabric-tools                1.2.0               379602873003        12 months ago       1.51GB
+hyperledger/fabric-ccenv                1.2.0               6acf31e2d9a4        12 months ago       1.43GB
+hyperledger/fabric-orderer              1.2.0               4baf7789a8ec        12 months ago       152MB
+hyperledger/fabric-peer                 1.2.0               82c262e65984        12 months ago       159MB
+hyperledger/fabric-zookeeper            0.4.10              2b51158f3898        13 months ago       1.44GB
+hyperledger/fabric-kafka                0.4.10              936aef6db0e6        13 months ago       1.45GB
+hyperledger/fabric-couchdb              0.4.10              3092eca241fc        13 months ago       1.61GB
+hyperledger/fabric-couchdb              latest              3092eca241fc        13 months ago       1.61GB
+hyperledger/fabric-baseimage            amd64-0.4.10        62513965e238        13 months ago       1.39GB
+hyperledger/fabric-baseos               amd64-0.4.10        52190e831002        13 months ago       132MB
+hyperledger/fabric-ca                   x86_64-1.1.0        72617b4fa9b4        16 months ago       299MB
+hyperledger/fabric-orderer              x86_64-1.1.0        ce0c810df36a        16 months ago       180MB
+hyperledger/fabric-peer                 x86_64-1.1.0        b023f9be0771        16 months ago       187MB
+hyperledger/fabric-ccenv                x86_64-1.1.0        c8b4909d8d46        16 months ago       1.39GB
+hyperledger/fabric-couchdb              x86_64-0.4.6        7e73c828fc5b        17 months ago       1.56GB
+
+  ~/blockchain 
+   df -h                                                                           25.07.19    23:27:55 
+Filesystem      Size   Used  Avail Capacity iused               ifree %iused  Mounted on
+/dev/disk1s1   233Gi  178Gi   52Gi    78% 4283762 9223372036850492045    0%   /
+devfs          199Ki  199Ki    0Bi   100%     688                   0  100%   /dev
+/dev/disk1s4   233Gi  3.0Gi   52Gi     6%       3 9223372036854775804    0%   /private/var/vm
+map -hosts       0Bi    0Bi    0Bi   100%       0                   0  100%   /net
+map auto_home    0Bi    0Bi    0Bi   100%       0                   0  100%   /home
+
+  ~/blockchain 
+   pwd                                                                             25.07.19    23:31:55 
+/Users/maverickzhn/blockchain
+
+  ~/blockchain 
+   lsa                                                                             25.07.19    23:32:42 
+total 16
+drwxr-xr-x   5 maverickzhn  staff   160B Jul 25 23:10 .
+drwxr-xr-x+ 73 maverickzhn  staff   2.3K Jul 25 23:32 ..
+-rw-r--r--@  1 maverickzhn  staff   6.0K Jun  3 16:15 .DS_Store
+drwxr-xr-x   8 maverickzhn  staff   256B Sep 24  2018 blockchain
+drwxr-xr-x  26 maverickzhn  staff   832B Jul 25 23:12 fabric-samples
+
+  ~/blockchain 
+   cd fabric                                                                       25.07.19    23:32:44 
+cd: no such file or directory: fabric
+
+  ~/blockchain 
+ ↵ 1  cd fabric-samples                                                             25.07.19    23:33:19 
+
+  ~/blockchain/fabric-samples     9e0eed19  v1.4.2 
+   lsa                                                                             25.07.19    23:33:24 
+total 96
+drwxr-xr-x  26 maverickzhn  staff   832B Jul 25 23:12 .
+drwxr-xr-x   5 maverickzhn  staff   160B Jul 25 23:10 ..
+drwxr-xr-x  13 maverickzhn  staff   416B Jul 25 23:33 .git
+drwxr-xr-x   3 maverickzhn  staff    96B Jul 25 23:10 .github
+-rw-r--r--   1 maverickzhn  staff   130B Jul 25 23:10 .gitignore
+-rw-r--r--   1 maverickzhn  staff   109B Jul 25 23:10 .gitreview
+-rw-r--r--   1 maverickzhn  staff   597B Jul 25 23:10 CODE_OF_CONDUCT.md
+-rw-r--r--   1 maverickzhn  staff   935B Jul 25 23:10 CONTRIBUTING.md
+-rw-r--r--   1 maverickzhn  staff   6.2K Jul 25 23:10 Jenkinsfile
+-rw-r--r--   1 maverickzhn  staff    11K Jul 25 23:10 LICENSE
+-rw-r--r--   1 maverickzhn  staff   470B Jul 25 23:10 MAINTAINERS.md
+-rw-r--r--   1 maverickzhn  staff   1.8K Jul 25 23:10 README.md
+drwxr-xr-x  13 maverickzhn  staff   416B Jul 25 23:10 balance-transfer
+drwxr-xr-x  16 maverickzhn  staff   512B Jul 25 23:10 basic-network
+drwxr-xr-x  10 maverickzhn  staff   320B Jul 25 23:12 bin
+drwxr-xr-x   8 maverickzhn  staff   256B Jul 25 23:10 chaincode
+drwxr-xr-x   9 maverickzhn  staff   288B Jul 25 23:10 chaincode-docker-devmode
+-rw-r--r--   1 maverickzhn  staff   968B Jul 25 23:10 ci.properties
+drwxr-xr-x   4 maverickzhn  staff   128B Jul 25 23:10 commercial-paper
+drwxr-xr-x   5 maverickzhn  staff   160B Jul 17 17:00 config
+drwxr-xr-x   4 maverickzhn  staff   128B Jul 25 23:10 docs
+drwxr-xr-x   7 maverickzhn  staff   224B Jul 25 23:10 fabcar
+drwxr-xr-x  27 maverickzhn  staff   864B Jul 25 23:10 first-network
+drwxr-xr-x   5 maverickzhn  staff   160B Jul 25 23:10 high-throughput
+drwxr-xr-x   5 maverickzhn  staff   160B Jul 25 23:10 interest_rate_swaps
+drwxr-xr-x   4 maverickzhn  staff   128B Jul 25 23:10 scripts
+
+  ~/blockchain/fabric-samples     9e0eed19  v1.4.2 
+   pwd                                                                             25.07.19    23:33:25 
+/Users/maverickzhn/blockchain/fabric-samples
+
+  ~/blockchain/fabric-samples     9e0eed19  v1.4.2 
+   export PATH=/Users/maverickzhn/blockchain/fabric-samples/bin:$PATH
+```
 
 ```
 maverickzhn@maverickzhn-mbp ~/b/f/scripts> ./bootstrap.sh
