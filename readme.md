@@ -530,6 +530,320 @@ hyperledger/fabric-couchdb                      x86_64-0.4.6        7e73c828fc5b
 # Install Samples, Binaries and Docker Images
 * https://hyperledger-fabric.readthedocs.io/en/release-1.2/install.html
 
+```
+  ./startFabric.sh                                                                25.07.19    23:41:08 
+Stopping for channel 'mychannel' with CLI timeout of '10' seconds and CLI delay of '3' seconds
+proceeding ...
+WARNING: The BYFN_CA1_PRIVATE_KEY variable is not set. Defaulting to a blank string.
+WARNING: The BYFN_CA2_PRIVATE_KEY variable is not set. Defaulting to a blank string.
+Removing network net_byfn
+WARNING: Network net_byfn not found.
+Removing volume net_orderer.example.com
+WARNING: Volume net_orderer.example.com not found.
+Removing volume net_peer0.org1.example.com
+WARNING: Volume net_peer0.org1.example.com not found.
+Removing volume net_peer1.org1.example.com
+WARNING: Volume net_peer1.org1.example.com not found.
+Removing volume net_peer0.org2.example.com
+WARNING: Volume net_peer0.org2.example.com not found.
+Removing volume net_peer1.org2.example.com
+WARNING: Volume net_peer1.org2.example.com not found.
+Removing volume net_orderer2.example.com
+WARNING: Volume net_orderer2.example.com not found.
+Removing volume net_orderer3.example.com
+WARNING: Volume net_orderer3.example.com not found.
+Removing volume net_orderer4.example.com
+WARNING: Volume net_orderer4.example.com not found.
+Removing volume net_orderer5.example.com
+WARNING: Volume net_orderer5.example.com not found.
+Removing volume net_peer0.org3.example.com
+WARNING: Volume net_peer0.org3.example.com not found.
+Removing volume net_peer1.org3.example.com
+WARNING: Volume net_peer1.org3.example.com not found.
+---- No containers available for deletion ----
+---- No images available for deletion ----
+
+Starting for channel 'mychannel' with CLI timeout of '10' seconds and CLI delay of '3' seconds and using database 'couchdb'
+proceeding ...
+LOCAL_VERSION=1.4.2
+DOCKER_IMAGE_VERSION=1.4.2
+/Users/maverickzhn/blockchain/fabric-samples/first-network/../bin/cryptogen
+
+##########################################################
+##### Generate certificates using cryptogen tool #########
+##########################################################
++ cryptogen generate --config=./crypto-config.yaml
+org1.example.com
+org2.example.com
++ res=0
++ set +x
+
+/Users/maverickzhn/blockchain/fabric-samples/first-network/../bin/configtxgen
+##########################################################
+#########  Generating Orderer Genesis block ##############
+##########################################################
+CONSENSUS_TYPE=solo
++ '[' solo == solo ']'
++ configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+2019-07-25 23:41:18.498 EDT [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2019-07-25 23:41:18.558 EDT [common.tools.configtxgen.localconfig] completeInitialization -> INFO 002 orderer type: solo
+2019-07-25 23:41:18.558 EDT [common.tools.configtxgen.localconfig] Load -> INFO 003 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:18.612 EDT [common.tools.configtxgen.localconfig] completeInitialization -> INFO 004 orderer type: solo
+2019-07-25 23:41:18.612 EDT [common.tools.configtxgen.localconfig] LoadTopLevel -> INFO 005 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:18.616 EDT [common.tools.configtxgen] doOutputBlock -> INFO 006 Generating genesis block
+2019-07-25 23:41:18.618 EDT [common.tools.configtxgen] doOutputBlock -> INFO 007 Writing genesis block
++ res=0
++ set +x
+
+#################################################################
+### Generating channel configuration transaction 'channel.tx' ###
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID mychannel
+2019-07-25 23:41:18.648 EDT [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2019-07-25 23:41:18.701 EDT [common.tools.configtxgen.localconfig] Load -> INFO 002 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:18.761 EDT [common.tools.configtxgen.localconfig] completeInitialization -> INFO 003 orderer type: solo
+2019-07-25 23:41:18.761 EDT [common.tools.configtxgen.localconfig] LoadTopLevel -> INFO 004 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:18.761 EDT [common.tools.configtxgen] doOutputChannelCreateTx -> INFO 005 Generating new channel configtx
+2019-07-25 23:41:18.765 EDT [common.tools.configtxgen] doOutputChannelCreateTx -> INFO 006 Writing new channel tx
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org1MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID mychannel -asOrg Org1MSP
+2019-07-25 23:41:18.794 EDT [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2019-07-25 23:41:18.850 EDT [common.tools.configtxgen.localconfig] Load -> INFO 002 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:18.915 EDT [common.tools.configtxgen.localconfig] completeInitialization -> INFO 003 orderer type: solo
+2019-07-25 23:41:18.915 EDT [common.tools.configtxgen.localconfig] LoadTopLevel -> INFO 004 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:18.915 EDT [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 005 Generating anchor peer update
+2019-07-25 23:41:18.915 EDT [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 006 Writing anchor peer update
++ res=0
++ set +x
+
+#################################################################
+#######    Generating anchor peer update for Org2MSP   ##########
+#################################################################
++ configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID mychannel -asOrg Org2MSP
+2019-07-25 23:41:18.958 EDT [common.tools.configtxgen] main -> INFO 001 Loading configuration
+2019-07-25 23:41:19.017 EDT [common.tools.configtxgen.localconfig] Load -> INFO 002 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:19.072 EDT [common.tools.configtxgen.localconfig] completeInitialization -> INFO 003 orderer type: solo
+2019-07-25 23:41:19.072 EDT [common.tools.configtxgen.localconfig] LoadTopLevel -> INFO 004 Loaded configuration: /Users/maverickzhn/blockchain/fabric-samples/first-network/configtx.yaml
+2019-07-25 23:41:19.072 EDT [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 005 Generating anchor peer update
+2019-07-25 23:41:19.072 EDT [common.tools.configtxgen] doOutputAnchorPeersUpdate -> INFO 006 Writing anchor peer update
++ res=0
++ set +x
+
+Creating network "net_byfn" with the default driver
+Creating volume "net_orderer.example.com" with default driver
+Creating volume "net_peer0.org1.example.com" with default driver
+Creating volume "net_peer1.org1.example.com" with default driver
+Creating volume "net_peer0.org2.example.com" with default driver
+Creating volume "net_peer1.org2.example.com" with default driver
+Creating ca_peerOrg2         ... done
+Creating couchdb1               ... done
+Creating couchdb2            ... done
+Creating ca_peerOrg1            ... done
+Creating orderer.example.com    ... done
+Creating couchdb3               ... done
+Creating couchdb0               ... done
+Creating peer0.org2.example.com ... done
+Creating peer0.org1.example.com ... done
+Creating peer1.org1.example.com ... done
+Creating peer1.org2.example.com ... done
+Creating cli                    ... done
+CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS                  PORTS                                        NAMES
+d9c0c6ca3a44        hyperledger/fabric-tools:latest     "/bin/bash"              2 seconds ago       Up Less than a second                                                cli
+cf326a8b9cd3        hyperledger/fabric-peer:latest      "peer node start"        3 seconds ago       Up 1 second             0.0.0.0:10051->10051/tcp                     peer1.org2.example.com
+bdcdbd8af833        hyperledger/fabric-peer:latest      "peer node start"        4 seconds ago       Up 1 second             0.0.0.0:8051->8051/tcp                       peer1.org1.example.com
+a4d1b9405b15        hyperledger/fabric-peer:latest      "peer node start"        4 seconds ago       Up 1 second             0.0.0.0:7051->7051/tcp                       peer0.org1.example.com
+8a20860eadc8        hyperledger/fabric-peer:latest      "peer node start"        4 seconds ago       Up 2 seconds            0.0.0.0:9051->9051/tcp                       peer0.org2.example.com
+a54f944d77dc        hyperledger/fabric-couchdb          "tini -- /docker-ent…"   6 seconds ago       Up 2 seconds            4369/tcp, 9100/tcp, 0.0.0.0:8984->5984/tcp   couchdb3
+1a2cdc23567d        hyperledger/fabric-ca:latest        "sh -c 'fabric-ca-se…"   6 seconds ago       Up 3 seconds            0.0.0.0:7054->7054/tcp                       ca_peerOrg1
+27d63d89397e        hyperledger/fabric-orderer:latest   "orderer"                6 seconds ago       Up 3 seconds            0.0.0.0:7050->7050/tcp                       orderer.example.com
+e1e29281868d        hyperledger/fabric-couchdb          "tini -- /docker-ent…"   6 seconds ago       Up 3 seconds            4369/tcp, 9100/tcp, 0.0.0.0:6984->5984/tcp   couchdb1
+22fc34e3cb1b        hyperledger/fabric-couchdb          "tini -- /docker-ent…"   6 seconds ago       Up 3 seconds            4369/tcp, 9100/tcp, 0.0.0.0:5984->5984/tcp   couchdb0
+b1c8b26f247f        hyperledger/fabric-couchdb          "tini -- /docker-ent…"   6 seconds ago       Up 3 seconds            4369/tcp, 9100/tcp, 0.0.0.0:7984->5984/tcp   couchdb2
+9d7c697d2b79        hyperledger/fabric-ca:latest        "sh -c 'fabric-ca-se…"   6 seconds ago       Up 4 seconds            7054/tcp, 0.0.0.0:8054->8054/tcp             ca_peerOrg2
+
+ ____    _____      _      ____    _____
+/ ___|  |_   _|    / \    |  _ \  |_   _|
+\___ \    | |     / _ \   | |_) |   | |
+ ___) |   | |    / ___ \  |  _ <    | |
+|____/    |_|   /_/   \_\ |_| \_\   |_|
+
+Build your first network (BYFN) end-to-end test
+
+Channel name : mychannel
+Creating channel...
++ peer channel create -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/channel.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2019-07-26 03:41:26.402 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2019-07-26 03:41:26.532 UTC [cli.common] readBlock -> INFO 002 Received block: 0
+===================== Channel 'mychannel' created =====================
+
+Having all peers join the channel...
++ peer channel join -b mychannel.block
++ res=1
++ set +x
+Error: error getting endorser client for channel: endorser client failed to connect to peer0.org1.example.com:7051: failed to create new connection: connection error: desc = "transport: error while dialing: dial tcp 172.18.0.10:7051: connect: connection refused"
+peer0.org1 failed to join the channel, Retry after 3 seconds
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2019-07-26 03:41:29.906 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2019-07-26 03:41:30.143 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer0.org1 joined channel 'mychannel' =====================
+
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2019-07-26 03:41:33.284 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2019-07-26 03:41:33.599 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer1.org1 joined channel 'mychannel' =====================
+
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2019-07-26 03:41:36.718 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2019-07-26 03:41:36.878 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer0.org2 joined channel 'mychannel' =====================
+
++ peer channel join -b mychannel.block
++ res=0
++ set +x
+2019-07-26 03:41:39.977 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2019-07-26 03:41:40.151 UTC [channelCmd] executeJoin -> INFO 002 Successfully submitted proposal to join channel
+===================== peer1.org2 joined channel 'mychannel' =====================
+
+Updating anchor peers for org1...
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org1MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2019-07-26 03:41:43.261 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2019-07-26 03:41:43.285 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
+===================== Anchor peers updated for org 'Org1MSP' on channel 'mychannel' =====================
+
+Updating anchor peers for org2...
++ peer channel update -o orderer.example.com:7050 -c mychannel -f ./channel-artifacts/Org2MSPanchors.tx --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
++ res=0
++ set +x
+2019-07-26 03:41:46.398 UTC [channelCmd] InitCmdFactory -> INFO 001 Endorser and orderer connections initialized
+2019-07-26 03:41:46.388 UTC [channelCmd] update -> INFO 002 Successfully submitted channel update
+===================== Anchor peers updated for org 'Org2MSP' on channel 'mychannel' =====================
+
+
+========= All GOOD, BYFN execution completed ===========
+
+
+ _____   _   _   ____
+| ____| | \ | | |  _ \
+|  _|   |  \| | | | | |
+| |___  | |\  | | |_| |
+|_____| |_| \_| |____/
+
++ echo 'Installing smart contract on peer0.org1.example.com'
+Installing smart contract on peer0.org1.example.com
++ docker exec -e CORE_PEER_LOCALMSPID=Org1MSP -e CORE_PEER_ADDRESS=peer0.org1.example.com:7051 -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt cli peer chaincode install -n fabcar -v 1.0 -p github.com/chaincode/fabcar/go -l golang
+2019-07-26 03:41:49.680 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2019-07-26 03:41:49.681 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2019-07-26 03:41:50.399 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
++ echo 'Installing smart contract on peer1.org1.example.com'
+Installing smart contract on peer1.org1.example.com
++ docker exec -e CORE_PEER_LOCALMSPID=Org1MSP -e CORE_PEER_ADDRESS=peer1.org1.example.com:8051 -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt cli peer chaincode install -n fabcar -v 1.0 -p github.com/chaincode/fabcar/go -l golang
+2019-07-26 03:41:50.656 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2019-07-26 03:41:50.656 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2019-07-26 03:41:51.030 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
++ echo 'Installing smart contract on peer0.org2.example.com'
+Installing smart contract on peer0.org2.example.com
++ docker exec -e CORE_PEER_LOCALMSPID=Org2MSP -e CORE_PEER_ADDRESS=peer0.org2.example.com:9051 -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt cli peer chaincode install -n fabcar -v 1.0 -p github.com/chaincode/fabcar/go -l golang
+2019-07-26 03:41:51.288 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2019-07-26 03:41:51.288 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2019-07-26 03:41:51.562 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
++ echo 'Installing smart contract on peer1.org2.example.com'
+Installing smart contract on peer1.org2.example.com
++ docker exec -e CORE_PEER_LOCALMSPID=Org2MSP -e CORE_PEER_ADDRESS=peer1.org2.example.com:10051 -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt cli peer chaincode install -n fabcar -v 1.0 -p github.com/chaincode/fabcar/go -l golang
+2019-07-26 03:41:51.819 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2019-07-26 03:41:51.819 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
+2019-07-26 03:41:52.090 UTC [chaincodeCmd] install -> INFO 003 Installed remotely response:<status:200 payload:"OK" >
++ echo 'Instantiating smart contract on mychannel'
+Instantiating smart contract on mychannel
++ docker exec -e CORE_PEER_LOCALMSPID=Org1MSP -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp cli peer chaincode instantiate -o orderer.example.com:7050 -C mychannel -n fabcar -l golang -v 1.0 -c '{"Args":[]}' -P 'AND('\''Org1MSP.member'\'','\''Org2MSP.member'\'')' --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+2019-07-26 03:41:52.373 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 001 Using default escc
+2019-07-26 03:41:52.373 UTC [chaincodeCmd] checkChaincodeCmdParams -> INFO 002 Using default vscc
++ echo 'Waiting for instantiation request to be committed ...'
+Waiting for instantiation request to be committed ...
++ sleep 10
++ echo 'Submitting initLedger transaction to smart contract on mychannel'
+Submitting initLedger transaction to smart contract on mychannel
++ echo 'The transaction is sent to all of the peers so that chaincode is built before receiving the following requests'
+The transaction is sent to all of the peers so that chaincode is built before receiving the following requests
++ docker exec -e CORE_PEER_LOCALMSPID=Org1MSP -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp cli peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n fabcar -c '{"function":"initLedger","Args":[]}' --waitForEvent --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses peer0.org1.example.com:7051 --peerAddresses peer1.org1.example.com:8051 --peerAddresses peer0.org2.example.com:9051 --peerAddresses peer1.org2.example.com:10051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+2019-07-26 03:43:30.456 UTC [chaincodeCmd] ClientWait -> INFO 001 txid [4c699cb74365b59b6073ee5eb0f141d5ad0a44acb6d3e74b7e4347cfb29f9c69] committed with status (VALID) at peer1.org1.example.com:8051
+2019-07-26 03:43:30.484 UTC [chaincodeCmd] ClientWait -> INFO 002 txid [4c699cb74365b59b6073ee5eb0f141d5ad0a44acb6d3e74b7e4347cfb29f9c69] committed with status (VALID) at peer1.org2.example.com:10051
+2019-07-26 03:43:30.501 UTC [chaincodeCmd] ClientWait -> INFO 003 txid [4c699cb74365b59b6073ee5eb0f141d5ad0a44acb6d3e74b7e4347cfb29f9c69] committed with status (VALID) at peer0.org2.example.com:9051
+2019-07-26 03:43:30.512 UTC [chaincodeCmd] ClientWait -> INFO 004 txid [4c699cb74365b59b6073ee5eb0f141d5ad0a44acb6d3e74b7e4347cfb29f9c69] committed with status (VALID) at peer0.org1.example.com:7051
+2019-07-26 03:43:30.513 UTC [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 005 Chaincode invoke successful. result: status:200
++ set +x
+
+Total setup execution time : 137 secs ...
+
+Next, use the FabCar applications to interact with the deployed FabCar contract.
+The FabCar applications are available in multiple programming languages.
+Follow the instructions for the programming language of your choice:
+
+JavaScript:
+
+  Start by changing into the "javascript" directory:
+    cd javascript
+
+  Next, install all required packages:
+    npm install
+
+  Then run the following applications to enroll the admin user, and register a new user
+  called user1 which will be used by the other applications to interact with the deployed
+  FabCar contract:
+    node enrollAdmin
+    node registerUser
+
+  You can run the invoke application as follows. By default, the invoke application will
+  create a new car, but you can update the application to submit other transactions:
+    node invoke
+
+  You can run the query application as follows. By default, the query application will
+  return all cars, but you can update the application to evaluate other transactions:
+    node query
+
+TypeScript:
+
+  Start by changing into the "typescript" directory:
+    cd typescript
+
+  Next, install all required packages:
+    npm install
+
+  Next, compile the TypeScript code into JavaScript:
+    npm run build
+
+  Then run the following applications to enroll the admin user, and register a new user
+  called user1 which will be used by the other applications to interact with the deployed
+  FabCar contract:
+    node dist/enrollAdmin
+    node dist/registerUser
+
+  You can run the invoke application as follows. By default, the invoke application will
+  create a new car, but you can update the application to submit other transactions:
+    node dist/invoke
+
+  You can run the query application as follows. By default, the query application will
+  return all cars, but you can update the application to evaluate other transactions:
+    node dist/query
+
+
+  ~/blockchain/fabric-samples/fabcar     9e0eed19  v1.4.2 
+```
+
 
 ```
 maverickzhn@maverickzhn-mbp ~/b/fabric-samples> curl -sSL http://bit.ly/2ysbOFE | bash -s 1.2.0
