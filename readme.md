@@ -1,7 +1,5 @@
 # Blockchain installation and playground
 
-Updating to the new version
-
 ## References
 * [foillow this documentation](https://hyperledger-fabric.readthedocs.io/en/release-1.4/write_first_app.html)
 * https://github.com/IBM/todo-list-fabricV1
