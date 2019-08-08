@@ -1,5 +1,10 @@
 # Blockchain installation and playground
 
+
+## Hyperledger Compoer pre=requites (2019.08.08)
+* https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html#macos
+
+
 ## References
 * [follow this documentation](https://hyperledger-fabric.readthedocs.io/en/release-1.4/write_first_app.html)
 * https://github.com/IBM/todo-list-fabricV1
