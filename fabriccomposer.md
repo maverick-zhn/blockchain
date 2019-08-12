@@ -1,3 +1,14 @@
+# Composer Playground
+
+## Creating a Business Network using a template
+http://localhost:8080/login
+
+Using ID and Secret
+EnrollmentID genericID
+EnrollmentSecret 0XooP$!wr3
+
+
+```
  ~/fabric-dev-servers 
    ./stopFabric.sh                                                  08.08.19    11:59:07 
 Development only script for Hyperledger Fabric control
@@ -293,3 +304,4 @@ XVMHPa0iyC497vdNURA=
 2019-08-08 16:00:20.598 UTC [channelCmd] executeJoin -> INFO 041 Successfully submitted proposal to join channel
 
   ~/fabric-dev-servers 
+ ```
