@@ -1,7 +1,7 @@
 # Blockchain installation and playground
 
 
-## Hyperledger Composer pre-requites (2019.08.08)
+## Hyperledger Composer pre-requisites (2019.08.08)
 * https://hyperledger.github.io/composer/latest/installing/installing-prereqs.html#macos
 
 
