@@ -4,7 +4,7 @@
 
 'use strict';
 
-const PacContract = require('./lib/pac-contract');
+const PacContract = require('./lib/pacContract');
 
 module.exports.PacContract = PacContract;
-module.exports.contracts = [ PacContract ];
+module.exports.contracts = [PacContract];

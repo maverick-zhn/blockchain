@@ -1,6 +1,6 @@
 {
-    "name": "pacchain",
-    "version": "0.1.1",
+    "name": "pacContract",
+    "version": "0.2.3",
     "description": "Trellis++ PAC Smart Contract",
     "main": "index.js",
     "engines": {
